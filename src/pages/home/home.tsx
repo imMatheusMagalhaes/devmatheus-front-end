@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import CardHome from "../components/CardHome";
-import { api } from "../config/axios";
-import { PostDataType } from "../types/PostDataType";
+import CardHome from "../../components/CardHome";
+import { api } from "../../config/axios";
+import { PostDataType } from "../../types/PostDataType";
 
 const Home: FC = () => {
   const [posts, setPosts] = useState(Array<PostDataType>());
@@ -15,25 +15,8 @@ const Home: FC = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  const listarPosts = (posts: Array<PostDataType>) => {
-    posts.map(
-      (item) => (
-        console.log(),
-        (
-          <CardHome
-            key={item.idPost}
-            titulo={item.titulo}
-            resumo={item.resumo}
-            user={item.user}
-            dataCriacao={item.dataCriacao}
-          />
-        )
-      )
-    );
-  };
-
   return (
-    <Container className="col-md-3 mx-auto align-items-center">
+    <Container className="home d-flex flex-column justify-content-center align-items-center">
       {posts.map((item) => (
         <CardHome
           key={item.idPost}

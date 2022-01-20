@@ -1,16 +1,20 @@
 import { FC } from "react";
 import { Card } from "react-bootstrap";
 import { PostDataType } from "../types/PostDataType";
+import "./CardHome.css";
 
 const CardHome: FC<PostDataType> = (props: PostDataType) => {
-  const date = new Date(props.dataCriacao);
-  const dateFormat = date.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  const dateTimeFormat = new Date(props.dataCriacao);
+  const dateFormat = dateTimeFormat.toLocaleDateString("pt-BR", { timeZone: "UTC" }) 
+  const timeFormat = dateTimeFormat.toLocaleTimeString("pt-BR", { timeZone: "UTC" })
+  const dateTime = `${dateFormat} ás ${timeFormat}`
+
   return (
-    <Card style={{ width: "18rem", cursor: "pointer" }} onClick={() => {}}>
+    <Card className="card" style={{ width: "18rem", cursor: "pointer" }} onClick={() => {}}>
       <Card.Body>
         <Card.Title>{props.titulo}</Card.Title>
         <Card.Text>{props.resumo}</Card.Text>
-        <Card.Text>{dateFormat}</Card.Text>
+        <Card.Text>{dateTime}</Card.Text>
         <Card.Text className="d-flex justify-content-end">
           {props.user.nome}
         </Card.Text>
