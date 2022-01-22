@@ -6,7 +6,6 @@ import { PostDataType } from "../../types/PostDataType";
 
 const Home: FC = () => {
   const [posts, setPosts] = useState(Array<PostDataType>());
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     api

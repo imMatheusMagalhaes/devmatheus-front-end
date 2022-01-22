@@ -1,20 +1,45 @@
 import { FC } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import "./write.css";
+
+type Conteudo = {
+  file: FileList;
+};
 
 const Write: FC = () => {
-  return (
-    <Container className="col-md-3 mx-auto align-items-center">
-      <Form>
-        <Form.Group className="mb-3">
-          <Form.Label>Titulo</Form.Label>
-          <Form.Control placeholder="Uma título massa!" />
-        </Form.Group>
+  const user = useSelector((state: RootState) => state.user);
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Conteudo>();
+
+  const onSubmit: SubmitHandler<Conteudo> = async (data) => {
+    console.log(user);
+  };
+  return (
+    <Container className="align d-flex flex-column justify-content-center align-items-center">
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3">
-          <Form.Label>Conteúdo</Form.Label>
-          <Form.Control placeholder="Pode falar!" />
+          <Form.Label>Envie um arquivo escrito em MarkDown</Form.Label>
+          <div className="input-group custom-file-button">
+            <label className="input-group-text" htmlFor="inputGroupFile">
+              Upload
+            </label>
+            <input
+              {...register("file")}
+              type="file"
+              className="form-control"
+              id="inputGroupFile"
+            />
+          </div>
         </Form.Group>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Enviar</Button>
       </Form>
     </Container>
   );
