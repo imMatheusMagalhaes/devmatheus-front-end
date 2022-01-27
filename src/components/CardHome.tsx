@@ -10,7 +10,7 @@ const CardHome: FC<PostDataType> = (props: PostDataType) => {
   const dateTime = `${dateFormat} ás ${timeFormat}`
 
   return (
-    <Card className="card" style={{ width: "18rem", cursor: "pointer" }} onClick={() => {}}>
+    <Card className="card" style={{ width: "30rem", cursor: "pointer" }} onClick={() => {}}>
       <Card.Body>
         <Card.Title>{props.titulo}</Card.Title>
         <Card.Text>{props.resumo}</Card.Text>

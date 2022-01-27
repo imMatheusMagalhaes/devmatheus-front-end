@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import CardHome from "../../components/CardHome";
 import { api } from "../../config/axios";
 import { PostDataType } from "../../types/PostDataType";
+import "../home/home.css"
 
 const Home: FC = () => {
   const [posts, setPosts] = useState(Array<PostDataType>());
@@ -15,7 +16,7 @@ const Home: FC = () => {
   }, []);
 
   return (
-    <Container className="home d-flex flex-column justify-content-center align-items-center">
+    <Container fluid className="home d-flex flex-column justify-content-center align-items-center">
       {posts.map((item) => (
         <CardHome
           key={item.idPost}

@@ -1,64 +1,60 @@
 import { FC } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../config/axios";
-import { RootState } from "../../store/store";
-import { setUser } from "../../store/user.store";
+import { setPosts } from "../../store/posts.store";
 import "./post.css";
 
-type User = {
-  nome: string;
-  email: string;
-  info: string;
+type Conteudo = {
+  file: FileList;
 };
 
 const Post: FC = () => {
-  const user = useSelector((state: RootState) => state.user);
-
-  const dispatch = useDispatch();
+  const userId = window.localStorage.getItem("id");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<User>();
+  } = useForm<Conteudo>();
 
-  const onSubmit: SubmitHandler<User> = async (data) => {
-    const response = await api.post("/users", data);
-    if (response.status === 201) {
-      console.log(user);
-      return dispatch(setUser(response.data));
+  const dispatch = useDispatch();
+
+  const onSubmit: SubmitHandler<Conteudo> = async (data) => {
+    if (userId) {
+      const file = {
+        post: (await data.file[0].text()).toString(),
+      };
+      const response = await api.post(`/posts/user/${userId}`, file);
+      if (response.status === 201) {
+        return dispatch(setPosts(response.data));
+      }
+    } else {
+      console.log("error");
+      return navigate("/user");
     }
-    return alert(response.status);
   };
-
   return (
     <Container className="align d-flex flex-column justify-content-center align-items-center">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3">
-          <Form.Label>Nome</Form.Label>
-          <Form.Control {...register("nome")} placeholder="Coloque um nome!!" />
+          <Form.Label>Envie um arquivo escrito em MarkDown</Form.Label>
+          <div className="input-group custom-file-button">
+            <label className="input-group-text" htmlFor="inputGroupFile">
+              Upload
+            </label>
+            <input
+              {...register("file")}
+              type="file"
+              className="form-control"
+              id="inputGroupFile"
+            />
+          </div>
         </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>E-mail</Form.Label>
-          <Form.Control
-            {...register("email")}
-            placeholder="Algum endereço de e-mail!"
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Info</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={4}
-            {...register("info")}
-            placeholder="Agora diga algo sobre você caso queira!"
-          />
-        </Form.Group>
-        <Button type="submit">Salvar</Button>
+        <Button type="submit">Enviar</Button>
       </Form>
     </Container>
   );
