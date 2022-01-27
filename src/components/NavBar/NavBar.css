@@ -1,0 +1,9 @@
+.topbar {
+  background-color: steelblue !important;
+  color: white !important;
+}
+
+.theme-button {
+  padding-right: 10px;
+  cursor: pointer;
+}

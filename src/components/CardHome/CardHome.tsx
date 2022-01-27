@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Card } from "react-bootstrap";
-import { PostDataType } from "../types/PostDataType";
+import { PostDataType } from "../../types/PostDataType";
 import "./CardHome.css";
 
 const CardHome: FC<PostDataType> = (props: PostDataType) => {
@@ -10,7 +10,7 @@ const CardHome: FC<PostDataType> = (props: PostDataType) => {
   const dateTime = `${dateFormat} ás ${timeFormat}`
 
   return (
-    <Card className="card" style={{ width: "30rem", cursor: "pointer" }} onClick={() => {}}>
+    <Card className="card" style={{ width: "30rem", cursor: "pointer" }} onClick={props.click}>
       <Card.Body>
         <Card.Title>{props.titulo}</Card.Title>
         <Card.Text>{props.resumo}</Card.Text>

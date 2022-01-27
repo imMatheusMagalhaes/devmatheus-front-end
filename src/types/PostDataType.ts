@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { UserDataType } from "./UserDataType";
 
 export interface PostDataType {
@@ -6,4 +7,5 @@ export interface PostDataType {
   resumo: string;
   dataCriacao: string;
   user: UserDataType;
+  click?: () => void;
 }
