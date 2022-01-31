@@ -13,6 +13,6 @@ const Write: FC = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  return <ReactMarkdown className="d-flex flex-column justify-content-center align-items-center">{postMD}</ReactMarkdown>;
+  return <ReactMarkdown>{postMD}</ReactMarkdown>;
 };
 export default Write;

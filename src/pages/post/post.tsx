@@ -30,7 +30,8 @@ const Post: FC = () => {
       };
       const response = await api.post(`/posts/user/${userId}`, file);
       if (response.status === 201) {
-        return dispatch(setPosts(response.data));
+        dispatch(setPosts(response.data));
+        return navigate(`/write/${response.data.idPost}`);
       }
     } else {
       console.log("error");
